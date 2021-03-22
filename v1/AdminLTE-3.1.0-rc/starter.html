@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YZYap | IDE</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/codemirror/codemirror.css">
+  <link rel="stylesheet" href="dist/css/codemirror/ayu-dark.css">
+
+<!-- Blockly -->
+<script src="dist/js/blockly/blockly_compressed.js"></script>
+<script src="dist/js/blockly/blocks_compressed.js"></script>
+<script src="dist/js/blockly/dark.js"></script>
+<script src="dist/js/blockly/en.js"></script>
+<script src="dist/js/blockly/python_compressed.js"></script>
+<script src="dist/js/blockly/robot_blocks.js"></script>
+<script src="dist/js/codemirror/codemirror.js"></script>
+<script src="dist/js/codemirror/python.js"></script>
+<script src="dist/js/app.js"></script>
+
+</head>
+<body onload="appLoad()" class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">YZYap</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <li class="nav-item">
+              <a href="#" onclick="activateCard('kodlamaCard')" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Kodlama
+                </p>
+              </a>
+            </li>
+          </li>
+          <li class="nav-item menu-open">
+            <li class="nav-item">
+              <a href="#" onclick="activateCard('aiCard')" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Yapay Zeka
+                </p>
+              </a>
+            </li>
+          </li>
+          <li class="nav-item menu-open">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Robot
+                </p>
+              </a>
+            </li>
+          </li>                 
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-12">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div id= "kodlamaCard" style="display:block"  class="card YzYapCardClass">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Kodlama
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#blockly-chart" data-toggle="tab">Google Blockly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"  href="#python-chart" data-toggle="tab">Python</a>
+                    </li>                                 
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="blockly-chart" style="position: relative; height: 580px;">
+                      <!--Blockly Chart-->
+                      <button onclick= "run_code('blockly')" class="btn bg-success">
+                        <i class="fas fa-play"></i>
+                      </button>
+                      <button onclick = "stop_code()" class="btn bg-danger">
+                        <i class="fas fa-stop"></i>
+                      </button>   
+                      <button onclick = "download_code('blockly')" class="btn bg-info">
+                        <i class="fa fa-download"></i>
+                      </button> 
+                      <input id="blockly_fileinput" type="file" onchange="openFile(event,'blockly')" style="display:none;"/>
+                      <button onclick = "$('#blockly_fileinput').click();" class="btn bg-secondary">
+                        <i class="fa fa-folder-open"></i>
+                      </button> 
+                      <button onclick = "blocklyCodeShow()" class="btn bg-warning">
+                        <i class="fas fa-eye"></i>
+                      </button>                                                                                 
+                      <div id="blocklyDivId" style="height: 540px; width: 100%; margin-top:10px;"></div>
+                      <xml xmlns="https://developers.google.com/blockly/xml" id="defaultBlocklyToolboxId" style="display: none">
+                        <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+                            <block type="controls_if"></block>
+                            <block type="logic_compare"></block>
+                            <block type="logic_operation"></block>
+                            <block type="logic_negate"></block>
+                            <block type="logic_boolean"></block>
+                          </category>
+                          <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+                            <block type="controls_repeat_ext">
+                              <value name="TIMES">
+                                <block type="math_number">
+                                  <field name="NUM">10</field>
+                                </block>
+                              </value>
+                            </block>
+                            <block type="controls_whileUntil"></block>
+                          </category>
+                          <category name="Math" colour="%{BKY_MATH_HUE}">
+                            <block type="math_number">
+                              <field name="NUM">123</field>
+                            </block>
+                            <block type="math_arithmetic"></block>
+                            <block type="math_single"></block>
+                          </category>
+                          <category name="Text" colour="%{BKY_TEXTS_HUE}">
+                            <block type="text"></block>
+                            <block type="text_length"></block>
+                            <block type="text_print"></block>
+                          </category>
+                    
+                          <category name="Robot" colour="%{BKY_COLOUR_HUE}">
+                            <block type="connrobot"></block>
+                            <block type="donsag"></block>
+                            <block type="donsol"></block>
+                            <block type="ileri"></block>
+                            <block type="geri"></block>
+                            <block type="ilerisag"></block>
+                            <block type="ilerisol"></block>
+                            <block type="gerisag"></block>
+                            <block type="gerisol"></block>
+                          </category>
+                          <category name="Kamera" colour="%{BKY_COLOUR_HUE}">
+                            <block type="pansag"></block>
+                            <block type="pandirektsag"></block>
+                            <block type="pansol"></block>
+                            <block type="pandirektsol"></block>
+                            <block type="tiltasagi"></block>
+                            <block type="tiltdirektasagi"></block>
+                            <block type="tiltyukari"></block>
+                            <block type="tiltdirektyukari"></block>
+                            <block type="cammerkez"></block>
+                            <block type="tiltscan"></block>
+                            <block type="panscan"></block>
+                          </category>
+                          <category name="Ultrasonik Sensör" colour="%{BKY_COLOUR_HUE}">
+                            <block type="ultrasonicsag"></block>
+                            <block type="ultrasonicdirektsag"></block>
+                            <block type="ultrasonicsol"></block>
+                            <block type="ultrasonicdirektsol"></block>
+                            <block type="ultrasonicmerkez"></block>
+                            <block type="ultrasonicscan"></block>
+                          </category>
+                          <category name="Ses" colour="%{BKY_COLOUR_HUE}">
+                            <block type="soundplay"></block>
+                            <block type="soundpause"></block>
+                            <block type="soundresume"></block>
+                            <block type="soundstop"></block>
+                            <block type="soundvolplus"></block>
+                            <block type="soundvolminus"></block>
+                          </category>      
+                          <category name="Zaman" colour="%{BKY_COLOUR_HUE}">
+                            <block type="time_sleep"></block>
+                          </category>        
+                      </xml>                   
+                   </div>
+                  <div class="chart tab-pane" id="python-chart" style="position: relative; height: 580px;">
+                    <button onclick = "run_code('python')" class="btn bg-success">
+                      <i class="fas fa-play"></i>
+                    </button>
+                    <button onclick = "stop_code()"class="btn bg-danger">
+                      <i class="fas fa-stop"></i>
+                    </button>   
+                    <button onclick = "download_code('python')" class="btn bg-info">
+                      <i class="fa fa-download"></i>
+                    </button> 
+                    <input id="python_fileinput" type="file" onchange="openFile(event,'python')" style="display:none;"/>
+                    <button onclick = "$('#python_fileinput').click();" class="btn bg-secondary">
+                      <i class="fa fa-folder-open"></i>
+                    </button> 
+                    <textarea id="pythonDivId" class="p-3" style="display: block;" ></textarea>                   
+                  </div>
+                </div>
+              </div><!-- /.card-body -->
+
+              <div class="card-footer bg-light p-0" style="display: block;">
+                <ul class="nav nav-pills flex-column">
+                  <li class="nav-item">
+                    <p id="defaultConsoleId" class="nav-link">
+                      Çıkış:
+                    </p>
+                  </li>
+                </ul>
+              </div>              
+            </div>
+            <!-- /.card -->
+
+
+            <!-- Custom tabs (Charts with tabs)-->
+            <div id = "aiCard" style="display:none"  class="card YzYapCardClass">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Yapay Zeka
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#ai_train-chart" data-toggle="tab">Eğit</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"  href="#ai_learn_and_test-chart" data-toggle="tab">Test Et</a>
+                    </li> 
+                    <li class="nav-item">
+                      <a class="nav-link"  href="#ai_make-chart" data-toggle="tab">Kullan</a>
+                    </li>                                             
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <div class="chart tab-pane active" id="ai_train-chart" style="position: relative; height: 580px;">
+                    <!--Model Seçimi-->
+                    <div class="row">
+                      <div class="col-6">
+                
+                        <label>Kullanılacak Yapay Zeka Modeli&nbsp;&nbsp;</label>
+                        <select class="selectpicker" data-style="btn-info">
+                          <option>Metin Tanıma</option>
+                          <option>Ses Tanıma</option>
+                          <option>Görüntü Tanıma</option>  
+                        </select>
+
+                      </div>
+
+                      <div class="col-6">
+                        <button type="button" onclick="addAILabel()" class="btn btn-info float-right"><i class="fas fa-plus"></i> Etiket Ekle</button>
+                      </div>
+                    </div>
+
+                    <div id="aiLabelArea" class="row"></div>
+                  </div>
+                </div>
+
+                  <div class="chart tab-pane" id="ai_learn_and_test-chart" style="position: relative; height: 580px;">                 
+                  </div>
+                  <div class="chart tab-pane" id="ai_make-chart" style="position: relative; height: 580px;">                  
+                  </div>                                  
+                </div>
+              </div><!-- /.card-body -->
+            
+            </div>
+            <!-- /.card -->
+
+          </section>
+          <!-- /.Left col -->
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+</body>
+</html>
